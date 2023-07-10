@@ -1,5 +1,6 @@
 package thigns.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Entity
 @Getter
@@ -20,8 +22,16 @@ public class Page {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany
+    @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Block> blocks = new ArrayList<>();
 
+    public Page(final String markdown) {
+        final StringTokenizer st = new StringTokenizer(markdown, "\n");
+        while (st.hasMoreTokens()) {
+            final Block block = new Block(st.nextToken());
+            block.setPage(this);
+            blocks.add(block);
+        }
+    }
 
 }
