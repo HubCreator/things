@@ -25,4 +25,10 @@ public class Text {
     private Block block;
     @Enumerated(EnumType.STRING)
     private Style style;
+    private String text;
+
+    public Text(final Style style, final String text) {
+        this.style = style;
+        this.text = text;
+    }
 }

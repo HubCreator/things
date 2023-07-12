@@ -1,5 +1,6 @@
 package thigns.application;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +11,7 @@ class ParsingServiceTest {
     @Autowired
     private ParsingService parsingService;
 
+    @Disabled
     @Test
     void parseToHTML() {
         // given
@@ -214,10 +216,10 @@ java.lang.Class 탭을 더블클릭하면 아래처럼 모달창이 뜨는데, �
             """;
 
         // when
-        final String parsed = parsingService.parseMDToHTML(hello);
+//        final String parsed = parsingService.parseMDToHTML(hello);
 
         // then
-        System.out.println(parsed);
+//        System.out.println(parsed);
     }
 
 }

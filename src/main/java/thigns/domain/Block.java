@@ -11,21 +11,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Block {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "page_id")
@@ -42,17 +42,31 @@ public class Block {
 
     public Block(final String content) {
         this.type = Type.of(content);
-        Map<Style, int[]> map = new HashMap<>();
+
+        // <어떤 스타일, [startIndex, endIndex]>
+        final Map<StyleRange, Style> map = new HashMap<>();
         final List<Style> entry = Style.entry(content);
-        for (Style style : entry) {
+
+        for (final Style style : entry) {
             final String subString = style.getPattern().matcher(content).pattern().toString();
             final int startIndex = content.indexOf(subString);
-            map.put(style, new int[]{startIndex, startIndex + subString.length()});
+            final StyleRange styleRange = new StyleRange(startIndex + 1, startIndex + subString.length() - 1);
+            map.put(styleRange, style);
         }
-        // TODO : 스타일별로 구간을 끊었는데, 이걸 Text로 어케 변환함?
+
+        for (int i = 0; i < content.length(); i++) {
+            final StyleRange target = new StyleRange(content.charAt(i));
+            if (map.containsKey(target)) {
+                
+            }
+        }
     }
 
     public void setPage(final Page page) {
         this.page = page;
     }
 }
+
+/**
+ * 안녕하세요. `*저*는 **우아한테크코스 5기 _수료생_ 헙크입니다.**`
+ */

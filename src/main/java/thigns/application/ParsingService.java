@@ -21,7 +21,7 @@ public class ParsingService {
     }*/
 
     @Transactional
-    public String save(final String markdown) {
+    public void save(final String markdown) {
         final Page page = new Page(markdown);
         pageRepository.save(page);
     }
