@@ -20,7 +20,13 @@ jobs:
               pull_number: context.issue.number
             });
             // find issue number from 'feat/foo-bar-1234' branch name where 1234 is issueNumber
-            const issueNumber = pr.data.head.ref.match(/.*-(\d+)/)[1];
+            const issueNumber;
+            if (pr.data && pr.data.head && pr.data.head.ref) {
+              issueNumber = pr.data.head.ref.match(/.*-(\d+)/)[1];
+              // 나머지 코드...
+            } else {
+              console.log('Failed to retrieve the head reference from the pull request.');
+            }
             const issue = await github.rest.issues.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
