@@ -19,7 +19,6 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.issue.number
             });
-            // find issue number from 'feat/foo-bar-1234' branch name where 1234 is issueNumber
             if (pr.data && pr.data.head && pr.data.head.ref) {
               const match = pr.data.head.ref.match(/.*-(\d+)/);
               if (match && match[1]) {
@@ -30,7 +29,6 @@ jobs:
                   issue_number: issueNumber
                 });
                 const issueBody = issue.data.body;
-                // find all tasks as multiple literals like "- [ ] task1\n - [ ] task2\n" under '### ✅ Tasks' section
                 const tasks = issueBody.match(/### ✅ Tasks\n- \[ \] .*\n/g);
 
                 const newBody = `### 🛠️ Issue\n\n- close #${issueNumber}\n\n### ✅ Tasks ${tasks.join('')}\n\n### ⏰ Time Difference\n\n- \n\n### 📝 Note\n\n- `;
