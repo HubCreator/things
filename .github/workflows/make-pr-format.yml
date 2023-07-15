@@ -1,9 +1,7 @@
 name: make_pr_format
 on:
   pull_request:
-    types:
-      - opened
-      - reopened
+    types: [opened, reopened]
 
 jobs:
   make_pr_format:
@@ -14,14 +12,14 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const pr = await github.rest.pulls.get({
+            const pr = await github.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.issue.number
             });
             
             const body = pr.data.body;
-            const issueNumber = pr.data.head.ref.match(/.*-(\d+)/)[1];
+            const issueNumber = pr.data.head.ref.match(/\d+(?!.*\d+)/)[0];
             const newBody = body + "\n\n" + "close #" + issueNumber;
             
             await github.pulls.update({
