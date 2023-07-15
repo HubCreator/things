@@ -20,7 +20,7 @@ jobs:
             
             const body = pr.data.body;
             const issueNumber = pr.data.head.ref.match(/\d+(?!.*\d+)/)[0];
-            const newBody = body + "\n\n" + "close #" + issueNumber;
+            const newBody = body.replace(/(🛠️ Issue)/, "$1\nclose #" + issueNumber);
             
             await github.pulls.update({
               owner: context.repo.owner,
