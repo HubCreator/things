@@ -10,7 +10,7 @@ jobs:
       - name: append issue number and contents to pr body
         uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.HUBCREATOR_KEY }}
           script: |
             const pr = await github.pulls.get({
               owner: context.repo.owner,
