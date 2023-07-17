@@ -11,13 +11,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
@@ -28,20 +29,20 @@ public class Block {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "page_id")
-    private Page page;
+    @JoinColumn(name = "writing_id")
+    private Writing writing;
     /*@ManyToOne
     @JoinColumn(name = "parent_id")
     private Block parent;
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Block> children = new ArrayList<>();*/
     @Enumerated(EnumType.STRING)
-    private Type type;
+    private BlockType blockType;
     @OneToMany(mappedBy = "block", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Text> texts = new ArrayList<>();
 
     public Block(final String content) {
-        this.type = Type.of(content);
+        this.blockType = BlockType.of(content);
 
         // <어떤 스타일, [startIndex, endIndex]>
         final Map<StyleRange, Style> map = new HashMap<>();
@@ -62,8 +63,8 @@ public class Block {
         }
     }
 
-    public void setPage(final Page page) {
-        this.page = page;
+    public void setWriting(final Writing writing) {
+        this.writing = writing;
     }
 }
 

@@ -1,9 +1,10 @@
 package thigns.domain;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.List;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
-import org.junit.jupiter.api.Test;
 
 class StyleTest {
 

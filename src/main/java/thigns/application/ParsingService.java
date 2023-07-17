@@ -3,7 +3,7 @@ package thigns.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import thigns.domain.Page;
+import thigns.domain.Writing;
 import thigns.persistence.PageRepository;
 
 @Service
@@ -22,7 +22,7 @@ public class ParsingService {
 
     @Transactional
     public void save(final String markdown) {
-        final Page page = new Page(markdown);
-        pageRepository.save(page);
+        final Writing writing = new Writing(markdown);
+        pageRepository.save(writing);
     }
 }

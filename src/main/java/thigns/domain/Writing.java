@@ -6,17 +6,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Page {
+public class Writing {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +25,11 @@ public class Page {
     @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Block> blocks = new ArrayList<>();
 
-    public Page(final String markdown) {
+    public Writing(final String markdown) {
         final StringTokenizer st = new StringTokenizer(markdown, "\n");
         while (st.hasMoreTokens()) {
             final Block block = new Block(st.nextToken());
-            block.setPage(this);
+            block.setWriting(this);
             blocks.add(block);
         }
     }

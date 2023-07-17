@@ -1,7 +1,7 @@
 package thigns.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import thigns.domain.Page;
+import thigns.domain.Writing;
 
-public interface PageRepository extends JpaRepository<Page, Long> {
+public interface PageRepository extends JpaRepository<Writing, Long> {
 }

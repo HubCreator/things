@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 @Getter
-public enum Type {
+public enum BlockType {
     HEADING1("^#{1} "),
     HEADING2("^#{2} "),
     HEADING3("^#{3} "),
@@ -19,11 +19,11 @@ public enum Type {
 
     private final Pattern pattern;
 
-    Type(String regex) {
+    BlockType(String regex) {
         this.pattern = Pattern.compile(regex);
     }
 
-    public static Type of(final String content) {
+    public static BlockType of(final String content) {
         return Arrays.stream(values())
                 .filter(m -> m.getPattern().matcher(content).find())
                 .findFirst()
