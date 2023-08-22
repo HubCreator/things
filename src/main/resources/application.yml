@@ -1,9 +1,9 @@
 spring:
-#  datasource:
-#    url: jdbc:h2:tcp://localhost/~/things;
-#    driver-class-name: org.h2.Driver
-#    username: sa
-#    password:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL
+  h2:
+    console:
+      enabled: true
   jpa:
     hibernate:
       ddl-auto: create
@@ -11,7 +11,14 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-        use_sql_comments: true
+        highlight_sql: true
 
-#logging.level:
-#  org.hibernate.SQL: debug
+logging:
+  level:
+    p6spy: info
+
+#p6spy query logging
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
