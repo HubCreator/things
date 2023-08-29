@@ -1,9 +1,12 @@
 package thigns.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +16,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,20 +24,16 @@ public class Member {
 
     private String name;
 
-    public Member(String name) {
-        this.name = name;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tag_id")
+    private Board board;
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (other == null || getClass() != other.getClass()) {
-            return false;
-        }
-        Member member = (Member) other;
-        return Objects.equals(id, member.id);
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        Tag tag = (Tag) other;
+        return Objects.equals(id, tag.id);
     }
 
     @Override
@@ -44,7 +43,7 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member{" +
+        return "Tag{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
