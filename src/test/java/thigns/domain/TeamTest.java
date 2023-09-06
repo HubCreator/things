@@ -35,12 +35,12 @@ class TeamTest {
         Team teamA = new Team("teamA", new ArrayList<>(List.of(memberA, memberB)));
 
         //when
-        Team savedTeam = teamRepository.save(teamA);
+        teamRepository.save(teamA);
         em.flush();
         em.clear();
 
         //then
-        Team findTeam = teamRepository.findByName("teamA").orElseThrow();
+        Team findTeam = teamRepository.findByTeamName("teamA").orElseThrow();
         assertAll(
                 () -> assertThat(findTeam.getMembers()).hasSize(2),
                 () -> assertThat(findTeam.getMembers().get(0)).isEqualTo(memberA),
@@ -63,7 +63,7 @@ class TeamTest {
         em.clear();
 
         //then
-        Team findTeam = teamRepository.findByName("teamA").orElseThrow();
+        Team findTeam = teamRepository.findByTeamName("teamA").orElseThrow();
         assertAll(
                 () -> assertThat(findTeam.getMembers()).hasSize(3),
                 () -> assertThat(findTeam.getMembers().get(0)).isEqualTo(memberA),
@@ -86,7 +86,7 @@ class TeamTest {
         em.clear();
 
         //then
-        Team findTeam = teamRepository.findByName("teamA").orElseThrow();
+        Team findTeam = teamRepository.findByTeamName("teamA").orElseThrow();
         assertThat(findTeam.getMembers()).hasSize(1);
     }
 
@@ -105,10 +105,21 @@ class TeamTest {
         em.clear();
 
         //then
-        Team findTeam = teamRepository.findByName("teamA").orElseThrow();
+        Team findTeam = teamRepository.findByTeamName("teamA").orElseThrow();
         assertAll(
                 () -> assertThat(findTeam.getMembers()).hasSize(2),
                 () -> assertThat(findTeam.getMembers()).containsExactlyInAnyOrder(memberC, memberB)
         );
+    }
+
+    @Test
+    void saveㅁㄴㅇㄹ() {
+        Member memberA = new Member("memberA");
+        Member memberB = new Member("memberB");
+        Team team = new Team("teamA");
+        team.add(memberA);
+        team.add(memberB);
+
+        teamRepository.save(team);
     }
 }

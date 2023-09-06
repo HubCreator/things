@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface TeamRepository extends JpaRepository<Team, Long> {
 
     @EntityGraph(attributePaths = "members")
-    Optional<Team> findByName(String name);
+    Optional<Team> findByTeamName(String teamName);
 }

@@ -14,25 +14,20 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String memberName;
 
-    public Member(String name) {
-        this.name = name;
+    public Member(String memberName) {
+        this.memberName = memberName;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (other == null || getClass() != other.getClass()) {
-            return false;
-        }
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
         Member member = (Member) other;
         return Objects.equals(id, member.id);
     }
@@ -40,13 +35,5 @@ public class Member {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
     }
 }
