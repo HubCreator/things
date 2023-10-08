@@ -1,7 +1,7 @@
 package thigns.application;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MemberService {
-    JdbcTemplate jdbcTemplate = new JdbcTemplate();
 }

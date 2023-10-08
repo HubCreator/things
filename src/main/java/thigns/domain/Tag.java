@@ -11,6 +11,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static jakarta.persistence.CascadeType.PERSIST;
+import static jakarta.persistence.CascadeType.REMOVE;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,7 +25,12 @@ public class Tag {
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {PERSIST, REMOVE})
     @JoinColumn(name = "tag_id")
     private Board board;
+
+    public Tag(final String name, final Board board) {
+        this.name = name;
+        this.board = board;
+    }
 }

@@ -24,6 +24,10 @@ public class Member {
         this.memberName = memberName;
     }
 
+    public void changeName(final String name) {
+        this.memberName = name;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;

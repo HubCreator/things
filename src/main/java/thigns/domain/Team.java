@@ -1,6 +1,5 @@
 package thigns.domain;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static jakarta.persistence.CascadeType.PERSIST;
+import static jakarta.persistence.CascadeType.REMOVE;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,17 +27,17 @@ public class Team {
 
     private String teamName;
 
-    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(cascade = {PERSIST, REMOVE})
     @JoinColumn(name = "team_id", updatable = false, nullable = false)
     private List<Member> members = new ArrayList<>();
-
-    public Team(String teamName) {
-        this.teamName = teamName;
-    }
 
     public Team(String teamName, List<Member> members) {
         this.teamName = teamName;
         this.members = members;
+    }
+
+    public Team(String teamName) {
+        this.teamName = teamName;
     }
 
     public void add(Member member) {
