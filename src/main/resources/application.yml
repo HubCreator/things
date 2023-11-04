@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:h2:mem:testdb;MODE=MySQL
-#    url: jdbc:h2:tcp://localhost/~/test
+    #    url: jdbc:h2:tcp://localhost/~/test
     password:
     username: sa
   h2:
@@ -16,12 +16,16 @@ spring:
         format_sql: true
         highlight_sql: true
 
+
 logging:
   level:
-    p6spy: info
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
+#logging:
+#  level:
+#    p6spy: info
 #p6spy query logging
-decorator:
-  datasource:
-    p6spy:
-      enable-logging: true
+#decorator:
+#  datasource:
+#    p6spy:
+#      enable-logging: true

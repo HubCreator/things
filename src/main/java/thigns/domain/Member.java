@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -18,21 +19,21 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String memberName;
+    private String name;
 
-    public Member(String memberName) {
-        this.memberName = memberName;
+    public Member(String name) {
+        this.name = name;
     }
 
-    public void changeName(final String name) {
-        this.memberName = name;
+    public void updateName(String name) {
+        this.name = name;
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
-        Member member = (Member) other;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
         return Objects.equals(id, member.id);
     }
 
